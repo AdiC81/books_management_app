@@ -11,3 +11,23 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.book input {
+  display: none;
+}
+
+.book input + label::after {
+  content: '⬜';
+  display: inline-block;
+  min-width: 25px;
+  text-align: center;
+}
+
+.book label:hover {
+  transform: scale(1.1);
+}
+
+.book input:checked + label::after {
+  /* content: '📖'; */
+  content: '📘';
+}
