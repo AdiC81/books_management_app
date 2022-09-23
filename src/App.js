@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Books from "./components/Books";
+import BooksPage from "./pages/BooksPage";
 
 const StyledAPP = styled.div`
   display: flex;
@@ -11,7 +11,7 @@ const StyledAPP = styled.div`
 function App() {
   return (
     <StyledAPP>
-      <Books />
+      <BooksPage />
     </StyledAPP>
   );
 }

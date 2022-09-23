@@ -1,37 +1,32 @@
-import { useEffect, useState } from "react"
 import styled from "styled-components";
 import Book from "./Book";
 import Loading from "./Loading";
+import { Title, StyledDiv } from "./_styled";
 
-const BooksList = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+const BooksList = styled(StyledDiv)`
     row-gap: 10px;
     background: #aaa;
     padding: 10px 0 10px 10px;
 `
 
-export default function Books() {
-    const [books, setBooks] = useState([]);
-    const [loading, setLoading] = useState(true);
+export default function Books({ books, isLoading, showBookDetails }) {
 
-    useEffect(() => {
-        fetch("https://anapioficeandfire.com/api/books")
-        .then(response => response.json())
-        .then(result => {
-            setLoading(false);
-            setBooks(result) 
-        })
-    }, [])
+    const handleClick = (book) => {
+        if(showBookDetails) {
+            showBookDetails(book);
+        }
+    }
 
-    if (loading) {
+    if (isLoading) {
         return <Loading />
     }
 
     return (
-        <BooksList>
-            {books.map((book, index) => <Book key={index} book={book}/>)}
-        </BooksList>
+        <StyledDiv>
+            <Title>The Complete Colection Of {books[0].authors}</Title>
+            <BooksList>
+                {books.map((book, index) => <Book key={index} book={book} showBookDetails={handleClick} />)}
+            </BooksList>
+        </StyledDiv>
     )
 }
