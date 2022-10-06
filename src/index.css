@@ -12,23 +12,25 @@ code {
     monospace;
 }
 
-.book input {
+.hide {
   display: none;
 }
 
-.book input + label::after {
+.book input + input::after {
   content: '⬜';
   display: inline-block;
   min-width: 25px;
+  margin-left: -6px;
+  margin-top: -3px;
   text-align: center;
 }
 
-.book label:hover {
+.book input:hover {
   transform: scale(1.1);
   cursor: pointer;
 }
 
-.book input:checked + label::after {
+.book input:checked + input::after {
   /* content: '📖'; */
   content: '📘';
 }

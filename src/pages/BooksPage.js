@@ -12,9 +12,12 @@ export default function BooksPage() {
             .then(response => response.json())
             .then(result => {
                 setLoading(false);
-                setBooks(result);
+                const updatedResult = result.map(el => (
+                    {...el, stock: 3}
+                ));
+                setBooks(updatedResult);
             })
-    }, [])
+        }, [])
 
     return (
         book ?

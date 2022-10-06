@@ -5,16 +5,19 @@ export const StyledSpan = styled.span`
     display: inline-block;
     min-width: 250px;
     text-align: center;
-    transition: transform .2s;
+    box-sizing: border-box;
+    padding-left: 5px;
+    transition: transform .3s;
 
     &:hover:first-of-type {
         background-color: #eee;
         border-radius: 3px;
+        transform: scale(1.05);
         cursor: pointer;
     }
 
     &:active:first-of-type {
-        transform: scale(0.95);
+        transform: scale(1);
     }
 `
 
@@ -30,6 +33,7 @@ export const Button = styled.button`
     font-size: 1em;
     padding: 4px 6px;
     border-radius: 4px;
+    max-width: fit-content;
 
     &:hover {
         background-color: #bbb;
@@ -55,5 +59,4 @@ export const Subtitle = styled.h3`
 export const Header = styled.div`
     background-color: yellowgreen;
     max-width: 1200px;
-    
 `
