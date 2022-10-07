@@ -3,6 +3,8 @@ import CharacterDetails from "./CharacterDetails";
 import Character from "./Character";
 import { Button, Title, StyledDiv, Subtitle } from "./_styled";
 import styled from "styled-components";
+import { useContext } from "react";
+import { CurrentBookContext } from "../context/CurrentBookContext";
 
 const StyledList = styled(StyledDiv)`
     min-width: 600px;
@@ -28,7 +30,7 @@ const StickyCharacters = styled(Subtitle)`
     min-width: 600px;
 `
 
-export default function BookDetails({ book, onClick }) {
+export default function BookDetails({ book }) {
     const [character, setCharacter] = useState();
     const [elementDetails, setElementDetails] = useState();
     const [isScrolled, setIsScrolled] = useState();
@@ -37,6 +39,8 @@ export default function BookDetails({ book, onClick }) {
 
     const { name, characters, povCharacters, country, publisher, released } = book;
     const element = useRef(null);
+
+    const { setBook } = useContext(CurrentBookContext);
 
     useEffect(() => {
         const height = element.current.clientHeight;
@@ -58,20 +62,14 @@ export default function BookDetails({ book, onClick }) {
         }
 
         window.addEventListener('scroll', handleOnScroll)
-    }, [setElementDetails])
-
-    const handleClose = () => {
-        if (onClick) {
-            onClick();
-        }
-    }
+    }, [])
 
     return (
         character ?
             <CharacterDetails onClick={(() => setCharacter())} character={character} /> :
             <div>
                 <StickyTitle ref={element} isScrolled={isScrolled} titleTranslate={titleTranslate}>
-                    <Button onClick={handleClose}>{'<'}</Button>
+                    <Button onClick={() => setBook(null)}>{'<'}</Button>
                     <Title style={{flex: 1}} >{name}</Title>
                 </StickyTitle>
                 <StyledList>

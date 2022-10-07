@@ -1,5 +1,7 @@
+import { useContext } from "react";
 import { useState } from "react";
 import styled from "styled-components";
+import { CurrentBookContext } from "../context/CurrentBookContext";
 import Book from "./Book";
 import BorrowBooks from "./BorrowBooks";
 import Loading from "./Loading";
@@ -22,16 +24,16 @@ const StatusCheckbox = styled.div`
     align-items: center;
 `
 
-export default function Books({ books, isLoading, showBookDetails }) {
+export default function Books({ books, isLoading }) {
     const [updatedBooks, setUpdatedBooks] = useState([]);
     const [action, setAction] = useState();
     const [status, setStatus] = useState("Borrow");
     const [statusChecked, setStatusChecked] = useState(true);
 
+    const {setBook} = useContext(CurrentBookContext);
+
     const handleClick = (book) => {
-        if (showBookDetails) {
-            showBookDetails(book);
-        }
+        setBook(book);
     }
 
     const handleChecked = (checked, updatedBook) => {

@@ -1,11 +1,14 @@
+import { useContext } from "react";
 import { useEffect, useState } from "react";
 import BookDetails from "../components/BookDetails";
 import Books from "../components/Books";
+import { CurrentBookContext } from "../context/CurrentBookContext";
 
 export default function BooksPage() {
     const [books, setBooks] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [book, setBook] = useState();
+    
+    const { book } = useContext(CurrentBookContext);
 
     useEffect(() => {
         fetch("https://anapioficeandfire.com/api/books")
@@ -21,7 +24,7 @@ export default function BooksPage() {
 
     return (
         book ?
-            <BookDetails book={book} onClick={() => setBook()} /> :
-            <Books books={books} isLoading={loading} showBookDetails={(book) => setBook(book)} />
+            <BookDetails book={book} /> :
+            <Books books={books} isLoading={loading} />
     )
 }
