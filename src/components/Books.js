@@ -1,7 +1,6 @@
-import { useContext } from "react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import styled from "styled-components";
-import { CurrentBookContext } from "../context/CurrentBookContext";
+import { CheckedBookContext } from "../context/CheckedBookContext";
 import Book from "./Book";
 import BorrowBooks from "./BorrowBooks";
 import Loading from "./Loading";
@@ -17,7 +16,7 @@ const StatusBar = styled(StyledDiv)`
     flex-direction: row;
     justify-content: space-evenly;
     padding-bottom: 10px;
-`
+    `
 
 const StatusCheckbox = styled.div`
     display: flex;
@@ -25,29 +24,11 @@ const StatusCheckbox = styled.div`
 `
 
 export default function Books({ books, isLoading }) {
-    const [updatedBooks, setUpdatedBooks] = useState([]);
     const [action, setAction] = useState();
     const [status, setStatus] = useState("Borrow");
     const [statusChecked, setStatusChecked] = useState(true);
 
-    const {setBook} = useContext(CurrentBookContext);
-
-    const handleClick = (book) => {
-        setBook(book);
-    }
-
-    const handleChecked = (checked, updatedBook) => {
-        const array = [...updatedBooks];
-        if (!checked) {
-            if (array.includes(updatedBook)) return;
-            array.push(updatedBook);
-            setUpdatedBooks(array);
-        }
-        if (checked) {
-            array.splice(array.indexOf(updatedBook), 1);
-            setUpdatedBooks(array);
-        }
-    }
+    const { checkedBooks } = useContext(CheckedBookContext);
 
     const handleOnChangeStatus = (e) => {
         const statusValue = e.target.value;
@@ -65,7 +46,14 @@ export default function Books({ books, isLoading }) {
         setStatusChecked(true);
         setAction(false);
         setStatus("Borrow");
-        updatedBooks.splice(0);
+        checkedBooks.splice(0);
+    }
+
+    const handleClick = () => {
+        if (checkedBooks.length > 0) {
+            setAction(true);
+        }
+        else return;
     }
 
     if (isLoading) {
@@ -74,7 +62,7 @@ export default function Books({ books, isLoading }) {
 
     return (
         action ?
-            <BorrowBooks updatedBooks={updatedBooks} status={status} onConfirm={handleConfirm} /> :
+            <BorrowBooks updatedBooks={checkedBooks} status={status} onConfirm={handleConfirm} /> :
             <StyledDiv>
                 <Title>The Complete Colection Of {books[0].authors}</Title>
                 <StatusBar>
@@ -84,17 +72,17 @@ export default function Books({ books, isLoading }) {
                         onChange={handleOnChangeStatus}
                         value={"Borrow"}
                         checked={statusChecked ? "Yes" : ""}
-                        disabled={updatedBooks.length > 0 && !statusChecked ? true : false} />
+                        disabled={checkedBooks.length > 0 && !statusChecked ? true : false} />
                         <label>Borrow</label>
                     </StatusCheckbox>
-                    <Button onClick={() => setAction(true)}>{statusChecked ? "Borrow!" : "Return!"}</Button>
+                    <Button onClick={handleClick}>{statusChecked ? "Borrow!" : "Return!"}</Button>
                     <StatusCheckbox>
                         <input
                         type={"checkbox"}
                         onChange={handleOnChangeStatus}
                         value={"Return"}
                         checked={statusChecked ? "" : "Yes"}
-                        disabled={updatedBooks.length > 0 && statusChecked ? true : false} />
+                        disabled={checkedBooks.length > 0 && statusChecked ? true : false} />
                         <label>Return</label>
                     </StatusCheckbox>
                 </StatusBar>
@@ -103,8 +91,6 @@ export default function Books({ books, isLoading }) {
                         key={index}
                         book={book}
                         status={status}
-                        showBookDetails={handleClick}
-                        onChecked={handleChecked}
                     />)}
                 </BooksList>
             </StyledDiv>

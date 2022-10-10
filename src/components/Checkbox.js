@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useContext } from "react";
+import { CheckedBookContext } from "../context/CheckedBookContext";
 
 const StyledInput = styled.input`
 
@@ -9,25 +11,28 @@ const StyledInput = styled.input`
     }
 `
 
-export default function Checkbox({ stock, status, onClick }) {
+export default function Checkbox({ book, status }) {
     const [checked, setChecked] = useState();
     const [isDisabled, setIsDisabled] = useState();
+
+    const { stock } = book;
+
+    const {addToBookList} = useContext(CheckedBookContext);
 
     useEffect(() => {
         if (status === "Borrow" && stock === 0) {
             setIsDisabled(true);
         }
-        if (status === "Return" && stock === 3) {
+        else if (status === "Return" && stock === 3) {
             setIsDisabled(true);
         }
         else setIsDisabled(false);
-    }, [stock, status]);
+    }, [stock, status, isDisabled]);
 
-    const handleClick = () => {
-        setChecked(!checked);
-        if (onClick) {
-            onClick(checked);
-        }
+    const handleOnInput = (e) => {
+        const checked = e.target.checked;
+        setChecked(checked);
+        addToBookList(checked, book);
     }
 
     return (
@@ -36,7 +41,7 @@ export default function Checkbox({ stock, status, onClick }) {
             <StyledInput
                 type={'checkbox'}
                 htmlFor="name"
-                onClick={handleClick}
+                onInput={handleOnInput}
                 disabled={isDisabled}
                 dataSet={isDisabled ? "yes" : ""} />
         </>
