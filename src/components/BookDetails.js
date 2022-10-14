@@ -3,8 +3,7 @@ import CharacterDetails from "./CharacterDetails";
 import Character from "./Character";
 import { Button, Title, StyledDiv, Subtitle } from "./_styled";
 import styled from "styled-components";
-import { useContext } from "react";
-import { CurrentBookContext } from "../context/CurrentBookContext";
+import { useCurrentBook } from "../context/CurrentBookContext";
 
 const StyledList = styled(StyledDiv)`
     min-width: 600px;
@@ -40,7 +39,7 @@ export default function BookDetails({ book }) {
     const { name, characters, povCharacters, country, publisher, released } = book;
     const element = useRef(null);
 
-    const { setBook } = useContext(CurrentBookContext);
+    const { setBook } = useCurrentBook();
 
     useEffect(() => {
         const height = element.current.clientHeight;
@@ -63,6 +62,7 @@ export default function BookDetails({ book }) {
 
         window.addEventListener('scroll', handleOnScroll)
     }, [])
+
 
     return (
         character ?

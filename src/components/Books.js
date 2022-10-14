@@ -1,6 +1,6 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
-import { CheckedBookContext } from "../context/CheckedBookContext";
+import { useCheckedBook } from "../context/CheckedBookContext";
 import Book from "./Book";
 import BorrowBooks from "./BorrowBooks";
 import Loading from "./Loading";
@@ -28,7 +28,7 @@ export default function Books({ books, isLoading }) {
     const [status, setStatus] = useState("Borrow");
     const [statusChecked, setStatusChecked] = useState(true);
 
-    const { checkedBooks } = useContext(CheckedBookContext);
+    const { checkedBooks } = useCheckedBook();
 
     const handleOnChangeStatus = (e) => {
         const statusValue = e.target.value;

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useContext } from "react";
-import { CheckedBookContext } from "../context/CheckedBookContext";
+import { useCheckedBook } from "../context/CheckedBookContext";
 
 const StyledInput = styled.input`
 
@@ -17,7 +16,7 @@ export default function Checkbox({ book, status }) {
 
     const { stock } = book;
 
-    const {addToBookList} = useContext(CheckedBookContext);
+    const {addToBookList} = useCheckedBook();
 
     useEffect(() => {
         if (status === "Borrow" && stock === 0) {

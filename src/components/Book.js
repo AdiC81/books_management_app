@@ -1,6 +1,5 @@
-import { useContext } from "react";
 import styled from "styled-components";
-import { CurrentBookContext } from "../context/CurrentBookContext";
+import { useCurrentBook } from "../context/CurrentBookContext";
 import Checkbox from "./Checkbox";
 import { StyledSpan } from "./_styled";
 
@@ -12,7 +11,7 @@ const StyledBook = styled.div`
 export default function Book({ book, status }) {
     const { name, numberOfPages: pages, authors, stock } = book;
 
-    const {setBook} = useContext(CurrentBookContext);
+    const {setBook} = useCurrentBook();
 
     return (
         <StyledBook className="book">

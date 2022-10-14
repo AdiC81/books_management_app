@@ -30,6 +30,10 @@ code {
   cursor: pointer;
 }
 
+.book input:hover[disabled] {
+  transform: none;
+}
+
 .book input:checked + input::after {
   /* content: '📖'; */
   content: '📘';
