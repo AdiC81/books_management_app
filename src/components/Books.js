@@ -28,7 +28,7 @@ export default function Books({ books, isLoading }) {
     const [status, setStatus] = useState("Borrow");
     const [statusChecked, setStatusChecked] = useState(true);
 
-    const { checkedBooks } = useCheckedBook();
+    const { checkedBooks, decreaseStock, increaseStock } = useCheckedBook();
 
     const handleOnChangeStatus = (e) => {
         const statusValue = e.target.value;
@@ -43,15 +43,19 @@ export default function Books({ books, isLoading }) {
     }
     
     const handleConfirm = () => {
-        setStatusChecked(true);
         setAction(false);
+        setStatusChecked(true);
         setStatus("Borrow");
         checkedBooks.splice(0);
     }
-
+    
     const handleClick = () => {
+        setAction(true);
         if (checkedBooks.length > 0) {
-            setAction(true);
+            if (status === "Borrow") {
+                decreaseStock(checkedBooks);
+            }
+            else increaseStock(checkedBooks);
         }
         else return;
     }
@@ -62,7 +66,7 @@ export default function Books({ books, isLoading }) {
 
     return (
         action ?
-            <BorrowBooks updatedBooks={checkedBooks} status={status} onConfirm={handleConfirm} /> :
+            <BorrowBooks updatedBooks={checkedBooks} onConfirm={handleConfirm} /> :
             <StyledDiv>
                 <Title>The Complete Colection Of {books[0].authors}</Title>
                 <StatusBar>
@@ -75,7 +79,7 @@ export default function Books({ books, isLoading }) {
                         disabled={checkedBooks.length > 0 && !statusChecked ? true : false} />
                         <label>Borrow</label>
                     </StatusCheckbox>
-                    <Button onClick={handleClick}>{statusChecked ? "Borrow!" : "Return!"}</Button>
+                    <Button onClick={handleClick}>{statusChecked ? "Borrow!" : "Return!"} </Button>
                     <StatusCheckbox>
                         <input
                         type={"checkbox"}

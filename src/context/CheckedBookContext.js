@@ -8,7 +8,34 @@ export function CheckedBookProvider({ children }) {
 
     const checkedContext = {
         checkedBooks,
+
         addToBookList: (checked, book) => {
+          const newCheckedBooks = [...checkedBooks];
+          if (checked) {
+            if (newCheckedBooks.includes(book)) return;
+            newCheckedBooks.push(book);
+            setCheckedBooks(newCheckedBooks);
+          }
+          else if (!checked) {
+            newCheckedBooks.splice(newCheckedBooks.indexOf(book), 1);
+            setCheckedBooks(newCheckedBooks);
+          }
+        },
+
+        decreaseStock: (books) => {
+          books.map(item => item.stock--)
+        },
+
+        increaseStock: (books) => {
+          books.map(item => item.stock++)
+        },
+
+        isDisabled: (status, book) => {
+          if ((status === "Borrow" && book.stock === 0) || 
+          (status === "Return" && book.stock === 3)) return true;
+        },
+
+        removeFromBookList: (checked, book) => {
           const newCheckedBooks = [...checkedBooks];
           if (checked) {
             if (newCheckedBooks.includes(book)) return;

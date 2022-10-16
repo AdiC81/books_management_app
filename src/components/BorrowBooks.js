@@ -1,14 +1,7 @@
 import { Button } from "./_styled";
 
-export default function BorrowBooks({ updatedBooks, status, onConfirm }) {
+export default function BorrowBooks({ updatedBooks, onConfirm }) {
     const handleOnConfirm = () => {
-        updatedBooks.map(book => {
-            if (status === "Borrow") {
-                return book.stock -= 1;
-            } else {
-                return book.stock += 1;
-            }
-        })
         if (onConfirm) {
             onConfirm()
         }
