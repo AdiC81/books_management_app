@@ -10,7 +10,7 @@ export const StyledSpan = styled.span`
     transition: transform .3s;
 
     &:hover:first-of-type {
-        background-color: #eee;
+        background-color: #aaa;
         border-radius: 3px;
         transform: scale(1.05);
         cursor: pointer;
@@ -25,18 +25,30 @@ export const StyledDiv = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
+    background-image: url("img/iron_throne.jpg");
+    background-position: center;
+    background-size: cover;
 `
 
 export const Button = styled.button`
     border: solid 1px #aaa;
+    color: white;
+    font-weight: bold;
     cursor: pointer;
     font-size: 1em;
     padding: 4px 6px;
-    border-radius: 4px;
-    max-width: fit-content;
+    border-radius: 100%;
+    height: 66px;
+    width: 66px;
+    font-family: 'Indie Flower', cursive;
+    background-image: url("img/house_red_logo.jpg");
+    background-position: center;
+    background-size: contain;
+    transition: transform .3s;
+
 
     &:hover {
-        background-color: #bbb;
+        transform: scale(1.1);
     }
 
     &:active {
@@ -46,10 +58,13 @@ export const Button = styled.button`
 `
 
 export const Title = styled.h1`
+    font-family: 'Griffy', cursive;
     margin-top: 0;
-    text-align: center;
     margin-bottom: 0;
-    padding-bottom: 10px;
+    text-align: center;
+    font-size: 2.5em;
+    padding: 30px;
+    color: white;
 `
 
 export const Subtitle = styled.h3`
@@ -57,6 +72,6 @@ export const Subtitle = styled.h3`
 `
 
 export const Header = styled.div`
-    background-color: yellowgreen;
+    // background-color: yellowgreen;
     max-width: 1200px;
 `

@@ -8,19 +8,21 @@ import { Title, StyledDiv, Button } from "./_styled";
 
 const BooksList = styled(StyledDiv)`
     row-gap: 10px;
-    background: #aaa;
-    padding: 10px 0 10px 10px;
+    background-image: none;
+    padding: 10px 30px 30px 40px;
 `
 
-const StatusBar = styled(StyledDiv)`
-    flex-direction: row;
+const StatusBar = styled.div`
+    display: flex;
     justify-content: space-evenly;
     padding-bottom: 10px;
+    font-family: 'Indie Flower', cursive;
     `
 
 const StatusCheckbox = styled.div`
     display: flex;
     align-items: center;
+    color: white;
 `
 
 export default function Books({ books, isLoading }) {
@@ -50,8 +52,8 @@ export default function Books({ books, isLoading }) {
     }
     
     const handleClick = () => {
-        setAction(true);
         if (checkedBooks.length > 0) {
+            setAction(true);
             if (status === "Borrow") {
                 decreaseStock(checkedBooks);
             }

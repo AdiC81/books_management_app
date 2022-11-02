@@ -4,7 +4,7 @@ import { StyledSpan } from "./_styled"
 const StyledCharSpan = styled(StyledSpan)`
 
     &:hover {
-        background-color: #eee;
+        background-color: #aaa;
         border-radius: 3px;
         cursor: pointer;
     }
