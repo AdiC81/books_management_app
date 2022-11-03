@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { ReturnBtn } from "./BookDetails";
-import { Title } from "./_styled";
+import { Title, ReturnBtn } from "./_styled";
 
 const StyledCategoryName = styled.span`
     font-weight: bold;

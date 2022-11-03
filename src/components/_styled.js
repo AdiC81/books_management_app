@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 
 export const StyledSpan = styled.span`
@@ -52,8 +52,20 @@ export const Button = styled.button`
     }
 
     &:active {
-        background-color: #eee;
         transform: translateY(1px);
+    }
+`
+
+export const ReturnBtn = styled(Button)`
+    transform: scale(0.5);
+    transition: transform .1s;
+
+    &:hover {
+        transform: scale(0.9);
+    }
+
+    &:active {
+        transform: scale(0.8);
     }
 `
 
@@ -75,3 +87,56 @@ export const Header = styled.div`
     // background-color: yellowgreen;
     max-width: 1200px;
 `
+
+export const StickyTitle = styled.div`
+    position: sticky;
+    display: flex;
+    align-items: center;
+    height: 280px;
+    top: 0;
+    z-index: 100;
+    background-position: center;
+    background-size: cover;
+    transform: translateY(${props => props.titleTranslate}) scaleY(${props => props.isScrolled});
+    transition: all .1s;
+`
+
+export const SwitchTitleLogo = styled(StickyTitle)`
+    ${(props) => {
+        switch (props.$mode) {
+            case "A Game of Thrones":
+                return css`
+                    background-image: url("img/GOT_logo.jpg");
+                `;
+            case "A Clash of Kings":
+                return css`
+                    background-image: url("img/A_Clash_of_Kings.jpg");
+                `;
+            case "A Storm of Swords":
+                return css`
+                    background-image: url("img/A_Storm_of_Swords.jpg");
+                    background-position: bottom;
+                `;
+            case "The Hedge Knight":
+                return css`
+                    background-image: url("img/The_Hedge_Knight.jpg");
+                    background-position: top;
+                    background-size: 80%;
+                    background-repeat: no-repeat;
+                `;
+            case "A Feast for Crows":
+                return css`
+                    background-image: url("img/A_Feast_For_Crows.jpg");
+                `;
+            case "A Dance with Dragons":
+                return css`
+                    background-image: url("img/House-of-the-Dragon.jpg");
+                    background-position: top;
+                `;
+            default:
+                return css`
+                    background-image: url("img/house_logo_3.jpeg");
+                `;  
+        }
+    }}
+`;
